@@ -9,6 +9,7 @@ langchain = "*"
 mypy = "*"
 python-dotenv = "*"
 chromadb = "*"
+tiktoken = "*"
 
 [dev-packages]
 

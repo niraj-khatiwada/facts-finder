@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
@@ -13,10 +14,16 @@ embeddings = OpenAIEmbeddings()
 
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=200, chunk_overlap=0)
 
-docs = TextLoader("facts.txt").load_and_split(text_splitter=text_splitter)
+docs = TextLoader(
+    f"{Path(__file__).parent.absolute()}/battle-challenge.txt"
+).load_and_split(text_splitter=text_splitter)
+
+print(docs)
+
+vector_db_dir = f"vector_db/{os.getenv('CHROMA_DB_NAME')}"
 
 Chroma.from_documents(
     documents=docs,
-    embedding_function=embeddings,
-    persist_directory=f"vector_db/{os.getenv('CHROMA_DB_NAME')}",
+    embedding=embeddings,
+    persist_directory=vector_db_dir,
 )

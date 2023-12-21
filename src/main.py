@@ -15,10 +15,8 @@ embeddings = OpenAIEmbeddings()
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=200, chunk_overlap=0)
 
 docs = TextLoader(
-    f"{Path(__file__).parent.absolute()}/battle-challenge.txt"
+    f"{Path(__file__).parent.absolute()}/facts.txt"
 ).load_and_split(text_splitter=text_splitter)
-
-print(docs)
 
 vector_db_dir = f"vector_db/{os.getenv('CHROMA_DB_NAME')}"
 

@@ -17,7 +17,6 @@ vector_db_dir = f"vector_db/{os.getenv('CHROMA_DB_NAME')}"
 
 db = Chroma(embedding_function=embeddings, persist_directory=vector_db_dir)
 
-retriever = db.as_retriever()
 retriever = RedundantFilterRetriever(embeddings=embeddings, chroma=db)
 
 chain = RetrievalQA.from_chain_type(llm=chat, retriever=retriever, chain_type="stuff")
